@@ -28,7 +28,7 @@ This calls all particles to public their presence information.  Needs to have ch
 
 Removes a user from the system
 
-# How to use it
+# How to add it to a project
 
  - Add the two files precensemanager.cpp and presencemanager.h to your project.
  - Add `#include "presencemanager.h"` to your application.
@@ -48,3 +48,34 @@ void setup() {
 void loop() {
 }
 ```
+
+# How to use it
+So you've added this to your projects.  You're using IFTTT (other services are available) to publish events when you arrive home/at work or when you connect to your IFTTT device.  But how can you use the data?
+
+The are two commands for checking the information.
+
+You wan't to know if anyone is at home so you can set the alarm?  Use the `isAnyone(String location` function.
+
+```
+bool is_armed;
+if (!pm.isAnyone("home") && !is_armed) {
+  arm_the_alarm();
+  is_armed = true;
+else if (pm.isAnyone("home") && is_armed) {
+  disarm_the_alarm();
+  is_armed = false;
+}
+```
+
+Or maybe you want to know if a specific user is at home.  Use the `isUser(String user, String location` function.
+
+```
+bool safe_is_locked;
+if (!pm.isUser("kevin", "home") && !safe_is_locked) {
+  lock_the_safe();
+} else if (pm.isUser("kevin", "home") && safe_is_locked) {
+  unlock_the_safe();
+}
+```
+
+Might not be the best idea to use this library to lock a safe but you get the idea.
