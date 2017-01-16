@@ -27,3 +27,24 @@ This calls all particles to public their presence information.  Needs to have ch
 `remove:username`
 
 Removes a user from the system
+
+# How to use it
+
+Add the two files PrecenseManager.cpp and PresenceManager.h to your project.
+Add `#include "presencemanager.h"` to your application.
+Decare a PresenceManager object `PresenceManager pm`
+Run `pm.setup()` and `pm.syncRequest()` in the `setup()` section of your code.
+
+```
+#include "PresenceManager.h"
+
+PresenceManager pm;
+
+void setup() {
+  pm.setup();
+  pm.syncRequest();
+}
+
+void loop() {
+}
+```
