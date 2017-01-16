@@ -60,10 +60,8 @@ You wan't to know if anyone is at home so you can set the alarm?  Use the `isAny
 bool is_armed;
 if (!pm.isAnyone("home") && !is_armed) {
   arm_the_alarm();
-  is_armed = true;
 else if (pm.isAnyone("home") && is_armed) {
   disarm_the_alarm();
-  is_armed = false;
 }
 ```
 
