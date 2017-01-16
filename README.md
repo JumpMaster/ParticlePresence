@@ -54,7 +54,7 @@ So you've added this to your projects.  You're using IFTTT (other services are a
 
 The are two commands for checking the information.
 
-You wan't to know if anyone is at home so you can set the alarm?  Use the `isAnyone(String location` function.
+You wan't to know if anyone is at home so you can set the alarm?  Use the `isAnyone(String location)` function.
 
 ```
 bool is_armed;
@@ -67,7 +67,7 @@ else if (pm.isAnyone("home") && is_armed) {
 }
 ```
 
-Or maybe you want to know if a specific user is at home.  Use the `isUser(String user, String location` function.
+Or maybe you want to know if a specific user is at home.  Use the `isUser(String user, String location)` function.
 
 ```
 bool safe_is_locked;
