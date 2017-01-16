@@ -10,20 +10,20 @@ To send the updates a third party system will be required.  I myself use IFTTT t
 
 # Supported commmands (data)
 
-###### update
+#### update
 
-update:username:location:timeofevent
+`update:username:location:timeofevent`
 
 username is self explanatory.  Location is any string value.  timeofevent is the epoch time of the last change or 0 to signify the time as now.  The 0 will be replaced with the current epoch time.
 
-###### request
+#### request
 
-request
+`request`
 
 This calls all particles to public their presence information.  Needs to have checks/delays added as to not send more then 4 publishes a second causing them to fail.
 
-###### remove
+#### remove
 
-remove:username
+`remove:username`
 
 Removes a user from the system
