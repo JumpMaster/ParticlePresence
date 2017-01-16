@@ -30,7 +30,7 @@ Removes a user from the system
 
 # How to use it
 
- - Add the two files PrecenseManager.cpp and PresenceManager.h to your project.
+ - Add the two files precensemanager.cpp and presencemanager.h to your project.
  - Add `#include "presencemanager.h"` to your application.
  - Decare a PresenceManager object `PresenceManager pm`
  - Run `pm.setup()` and `pm.syncRequest()` in the `setup()` section of your code.
