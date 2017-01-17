@@ -1,10 +1,10 @@
- #include "presencemanager.h"
+#include "presencemanager.h"
+#include "application.h"
 
-PresenceManager::PresenceManager() {}
+PresenceManager::PresenceManager() : publishTimer(1000, &PresenceManager::PublishTimerCallback, *this, true) {}
 
 void PresenceManager::setup() {
-    bool result = Particle.subscribe("presence", &PresenceManager::handler, this, MY_DEVICES);
-    /*
+    bool result = Particle.subscribe("presence", &PresenceManager::handler, this, MY_DEVICES);    /*
     if (result)
         Particle.publish("LOG", "subscribe succeeded", 60, PRIVATE);
     else
@@ -14,6 +14,16 @@ void PresenceManager::setup() {
 
 void PresenceManager::syncRequest() {
     Particle.publish("presence", "request", 60, PRIVATE);
+}
+
+void PresenceManager::PublishTimerCallback() {
+    Particle.publish("presence", String::format("update:%s:%s:%d", users[nextPublishId].name.c_str(), users[nextPublishId].location.c_str(), users[nextPublishId].lastUpdated), 60, PRIVATE);
+    nextPublishId++;
+    
+    if (nextPublishId < users.size())
+        publishTimer.reset();
+    else
+        nextPublishId = 0;
 }
 
 void PresenceManager::handler(const char *eventName, const char *data) {
@@ -58,8 +68,8 @@ void PresenceManager::handler(const char *eventName, const char *data) {
         }
     
     } else if (command.startsWith("request")) { // request
-        for (int i = 0; i < users.size(); i++)
-            Particle.publish("presence", String::format("update:%s:%s:%d", users[i].name.c_str(), users[i].location.c_str(), users[i].lastUpdated), 60, PRIVATE);
+        if (users.size() > 0)
+            PublishTimerCallback();
     }
 }
 
@@ -70,6 +80,16 @@ bool PresenceManager::isAnyone(String location) {
     }
     
     return false;
+}
+
+
+bool PresenceManager::isEveryone(String location) {
+    for (int i = 0; i < users.size(); i++) {
+        if (!users[i].location.equals(location))
+            return false;
+    }
+    
+    return true;
 }
 
 bool PresenceManager::isUser(String user, String location) {
